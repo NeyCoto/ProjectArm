@@ -56,9 +56,9 @@ ros2 launch ur5_moveit_config demo.launch.py
 ## 📂 Estructura del proyecto
 ```
 ProjectArm/
-├── src/                # Paquetes del robot
-├── urdf/               # Modelo URDF del robot
-├── launch/             # Archivos de lanzamiento
+├── src/             # Paquetes del robot
+    ├── ur5Model                      # Paquete del modelo URDF del robot
+    ├── ur5_moveit_config             # Paquete del controlador de moveit
 └── README.md           # Documentación del proyecto
 ```
 
