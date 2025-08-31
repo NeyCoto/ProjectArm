@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="ArmProject">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="arm">
+        <joint name="world_to_base"/>
+        <joint name="base_link_to_motor_1_v4"/>
+        <joint name="motor_1_v4_to_motor_2_v2"/>
+        <joint name="motor_2_v2_to_eslabon_r2_v3"/>
+        <joint name="eslabon_r2_v3_to_motor_3_v1_2"/>
+        <joint name="motor_3_v1_2_to_codo_1_modificado_v1"/>
+        <joint name="codo_1_modificado_v1_to_eslabon_r3_v1 "/>
+        <joint name="eslabon_r3_v1_to_motor_4_v4 "/>
+        <joint name="motor_4_v4_to_motor_5_v1"/>
+        <joint name="motor_5_v1_to_motor_6_v1"/>
+        <joint name="motor_6_v1_to_endEfector"/>
+    </group>
+    <group name="ventosa">
+        <link name="ventosa"/>
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="zero" group="arm">
+        <joint name="base_link_to_motor_1_v4" value="0"/>
+        <joint name="motor_1_v4_to_motor_2_v2" value="0"/>
+        <joint name="motor_3_v1_2_to_codo_1_modificado_v1" value="0"/>
+        <joint name="motor_4_v4_to_motor_5_v1" value="0"/>
+        <joint name="motor_5_v1_to_motor_6_v1" value="0"/>
+        <joint name="motor_6_v1_to_endEfector" value="0"/>
+    </group_state>
+    <group_state name="home" group="arm">
+        <joint name="base_link_to_motor_1_v4" value="0"/>
+        <joint name="motor_1_v4_to_motor_2_v2" value="-0.3"/>
+        <joint name="motor_3_v1_2_to_codo_1_modificado_v1" value="0.35"/>
+        <joint name="motor_4_v4_to_motor_5_v1" value="0.35"/>
+        <joint name="motor_5_v1_to_motor_6_v1" value="0.35"/>
+        <joint name="motor_6_v1_to_endEfector" value="-0.35"/>
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="ventosa" parent_link="endEfector" group="ventosa"/>
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="base_link" link2="codo_1_modificado_v1" reason="Never"/>
+    <disable_collisions link1="base_link" link2="endEfector" reason="Never"/>
+    <disable_collisions link1="base_link" link2="eslabon_r2_v3" reason="Never"/>
+    <disable_collisions link1="base_link" link2="eslabon_r3_v1" reason="Never"/>
+    <disable_collisions link1="base_link" link2="motor_1_v4" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="motor_2_v2" reason="Never"/>
+    <disable_collisions link1="base_link" link2="motor_3_v1_2" reason="Never"/>
+    <disable_collisions link1="base_link" link2="motor_4_v4" reason="Never"/>
+    <disable_collisions link1="base_link" link2="motor_5_v1" reason="Never"/>
+    <disable_collisions link1="base_link" link2="motor_6_v1" reason="Never"/>
+    <disable_collisions link1="base_link" link2="ventosa" reason="Never"/>
+    <disable_collisions link1="codo_1_modificado_v1" link2="endEfector" reason="Never"/>
+    <disable_collisions link1="codo_1_modificado_v1" link2="eslabon_r2_v3" reason="Never"/>
+    <disable_collisions link1="codo_1_modificado_v1" link2="eslabon_r3_v1" reason="Adjacent"/>
+    <disable_collisions link1="codo_1_modificado_v1" link2="motor_1_v4" reason="Never"/>
+    <disable_collisions link1="codo_1_modificado_v1" link2="motor_2_v2" reason="Never"/>
+    <disable_collisions link1="codo_1_modificado_v1" link2="motor_3_v1_2" reason="Adjacent"/>
+    <disable_collisions link1="codo_1_modificado_v1" link2="motor_4_v4" reason="Never"/>
+    <disable_collisions link1="codo_1_modificado_v1" link2="motor_5_v1" reason="Never"/>
+    <disable_collisions link1="codo_1_modificado_v1" link2="motor_6_v1" reason="Never"/>
+    <disable_collisions link1="codo_1_modificado_v1" link2="ventosa" reason="Never"/>
+    <disable_collisions link1="endEfector" link2="eslabon_r2_v3" reason="Never"/>
+    <disable_collisions link1="endEfector" link2="eslabon_r3_v1" reason="Never"/>
+    <disable_collisions link1="endEfector" link2="motor_1_v4" reason="Never"/>
+    <disable_collisions link1="endEfector" link2="motor_2_v2" reason="Never"/>
+    <disable_collisions link1="endEfector" link2="motor_3_v1_2" reason="Never"/>
+    <disable_collisions link1="endEfector" link2="motor_4_v4" reason="Never"/>
+    <disable_collisions link1="endEfector" link2="motor_5_v1" reason="Never"/>
+    <disable_collisions link1="endEfector" link2="motor_6_v1" reason="Adjacent"/>
+    <disable_collisions link1="endEfector" link2="ventosa" reason="Adjacent"/>
+    <disable_collisions link1="eslabon_r2_v3" link2="eslabon_r3_v1" reason="Never"/>
+    <disable_collisions link1="eslabon_r2_v3" link2="motor_1_v4" reason="Never"/>
+    <disable_collisions link1="eslabon_r2_v3" link2="motor_2_v2" reason="Adjacent"/>
+    <disable_collisions link1="eslabon_r2_v3" link2="motor_3_v1_2" reason="Adjacent"/>
+    <disable_collisions link1="eslabon_r2_v3" link2="motor_4_v4" reason="Never"/>
+    <disable_collisions link1="eslabon_r2_v3" link2="motor_5_v1" reason="Never"/>
+    <disable_collisions link1="eslabon_r2_v3" link2="motor_6_v1" reason="Never"/>
+    <disable_collisions link1="eslabon_r2_v3" link2="ventosa" reason="Never"/>
+    <disable_collisions link1="eslabon_r3_v1" link2="motor_1_v4" reason="Never"/>
+    <disable_collisions link1="eslabon_r3_v1" link2="motor_2_v2" reason="Never"/>
+    <disable_collisions link1="eslabon_r3_v1" link2="motor_3_v1_2" reason="Never"/>
+    <disable_collisions link1="eslabon_r3_v1" link2="motor_4_v4" reason="Adjacent"/>
+    <disable_collisions link1="eslabon_r3_v1" link2="motor_5_v1" reason="Never"/>
+    <disable_collisions link1="eslabon_r3_v1" link2="motor_6_v1" reason="Never"/>
+    <disable_collisions link1="eslabon_r3_v1" link2="ventosa" reason="Never"/>
+    <disable_collisions link1="motor_1_v4" link2="motor_2_v2" reason="Adjacent"/>
+    <disable_collisions link1="motor_1_v4" link2="motor_3_v1_2" reason="Never"/>
+    <disable_collisions link1="motor_1_v4" link2="motor_4_v4" reason="Never"/>
+    <disable_collisions link1="motor_1_v4" link2="motor_5_v1" reason="Never"/>
+    <disable_collisions link1="motor_1_v4" link2="motor_6_v1" reason="Never"/>
+    <disable_collisions link1="motor_1_v4" link2="ventosa" reason="Never"/>
+    <disable_collisions link1="motor_2_v2" link2="motor_3_v1_2" reason="Never"/>
+    <disable_collisions link1="motor_2_v2" link2="motor_4_v4" reason="Never"/>
+    <disable_collisions link1="motor_2_v2" link2="motor_5_v1" reason="Never"/>
+    <disable_collisions link1="motor_2_v2" link2="motor_6_v1" reason="Never"/>
+    <disable_collisions link1="motor_2_v2" link2="ventosa" reason="Never"/>
+    <disable_collisions link1="motor_3_v1_2" link2="motor_4_v4" reason="Never"/>
+    <disable_collisions link1="motor_3_v1_2" link2="motor_5_v1" reason="Never"/>
+    <disable_collisions link1="motor_3_v1_2" link2="motor_6_v1" reason="Never"/>
+    <disable_collisions link1="motor_3_v1_2" link2="ventosa" reason="Never"/>
+    <disable_collisions link1="motor_4_v4" link2="motor_5_v1" reason="Adjacent"/>
+    <disable_collisions link1="motor_4_v4" link2="motor_6_v1" reason="Never"/>
+    <disable_collisions link1="motor_4_v4" link2="ventosa" reason="Never"/>
+    <disable_collisions link1="motor_5_v1" link2="motor_6_v1" reason="Adjacent"/>
+    <disable_collisions link1="motor_5_v1" link2="ventosa" reason="Never"/>
+    <disable_collisions link1="motor_6_v1" link2="ventosa" reason="Never"/>
+</robot>

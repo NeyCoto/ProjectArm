@@ -1,0 +1,27 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: ur5Model
+    relative_path: urdf/urdfModel.urdf
+  srdf:
+    relative_path: config/ArmProject.srdf
+  package_settings:
+    author_name: NeyCoto
+    author_email: ncoto@espol.edu.ec
+    generated_timestamp: 1756366049
+  control_xacro:
+    command:
+      - position
+      - velocity
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+      - velocity
+    state:
+      - position
+      - velocity
